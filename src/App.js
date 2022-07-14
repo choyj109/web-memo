@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getList, addList } from "./store/list/listSlice";
@@ -37,6 +38,47 @@ function App() {
           <input type="text" value="입력된 글자" />
           <button type="submit">목록추가</button>
         </div>
+=======
+import './App.css';
+import {useSelector ,  useDispatch } from "react-redux";
+import { useEffect,useState} from "react";
+import { getList,addList } from './store/list/listSlice';
+import List from './components/List';
+
+function App() {
+  const dispatch = useDispatch();
+  const listdata = useSelector((state) => state.list);
+  const [listValue, setListValue] = useState('')
+  useEffect(() => {
+    dispatch(getList())
+    },[])
+const onCreate =(e) =>{
+  e.preventDefault();
+  if(listValue){
+    const newList = {content:listValue}  
+    dispatch(addList(newList))
+    setListValue('')
+  }
+}
+  return (
+    <div className="App">
+      <form onSubmit={onCreate}>
+         <h1>{listdata.message}</h1>
+         <div>
+            {
+              listdata.data.map((ele)=> <List key={ele.id} id={ele.id} content={ele.content} />)
+
+            }
+         </div>
+         <div>
+           <input 
+           type="text"
+           onChange={(e)=>setListValue(e.target.value)}
+           value={listValue}
+           />
+           <button type='submit'>목록추가</button>
+         </div>
+>>>>>>> 7fdaafcbed148b0b3380a5caf09e753b2a87fb5d
       </form>
     </div>
   );
