@@ -6,7 +6,7 @@ export const getList = createAsyncThunk(
   "GET_LIST",
   async () => {
     try {
-      const res = await axios.get("http://localhost:5005/list");
+      const res = await axios.get("http://localhost:8000/list");
       return res.data;
     } catch (err) {
       console.log(err);
@@ -16,7 +16,7 @@ export const getList = createAsyncThunk(
 
 export const addList = createAsyncThunk("ADD_LIST", async (newList) => {
   try {
-    const res = await axios.post(`http://localhost:5005/list`, newList);
+    const res = await axios.post(`http://localhost:8000/list`, newList);
     return res.data;
     // 리턴값이 2개면 중괄호
   } catch (err) {
@@ -26,12 +26,26 @@ export const addList = createAsyncThunk("ADD_LIST", async (newList) => {
 
 export const deleteList = createAsyncThunk("DELETE_LIST", async (id) => {
   try {
-    const res = await axios.post(`http://localhost:5005/list/${id}`);
+    const res = await axios.post(`http://localhost:8000/list/${id}`);
     return id;
   } catch (err) {
     console.log(err);
   }
 });
+
+export const updateList = createAsyncThunk(
+  "UPDATE_LIST",
+  async ({ id, content }) => {
+    try {
+      const res = await axios.put(`http://localhost:8000/list/${id}`, {
+        content: content,
+      });
+      return { id, content };
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
 
 const listSlice = createSlice({
   name: "list",
@@ -52,6 +66,12 @@ const listSlice = createSlice({
     builder.addCase(deleteList.fulfilled, (state, action) => {
       state.message = "삭제 완료";
       state.data = state.data.filter((ele) => ele.id !== action.payload);
+    });
+    builder.addCase(updateList.fulfilled, (state, action) => {
+      state.message = "수정 완료";
+      const idx = state.data.findIndex((ele) => ele.id === action.payload.id);
+      // console.log(idx);
+      state.data.splice(idx, 1, action.payload);
     });
   },
   // 비동기를 담당하는 리듀서

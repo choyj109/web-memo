@@ -8,6 +8,7 @@ function App() {
   const dispatch = useDispatch();
   const listdata = useSelector((state) => state.list);
   const [listValue, setListValue] = useState("");
+  const [dataValue, setDataValue] = useState("");
   useEffect(() => {
     dispatch(getList());
   }, []);
@@ -19,8 +20,20 @@ function App() {
       setListValue("");
     }
   };
+  const onClick = (e) => {
+    const data = e.target.dataset.value;
+    setDataValue(data);
+  };
+
   return (
     <div className="App">
+      <button onClick={onClick} data-value="value1 입니다">
+        value1
+      </button>
+      <button onClick={onClick} data-value="value2 입니다">
+        value2
+      </button>
+      <h2>{dataValue}</h2>
       <form onSubmit={onCreate}>
         <h1>{listdata.message}</h1>
         <div>
