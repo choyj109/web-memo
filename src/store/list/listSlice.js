@@ -6,7 +6,7 @@ export const getList = createAsyncThunk(
   "GET_LIST",
   async () => {
     try {
-      const res = await axios.get("http://localhost:8000/list");
+      const res = await axios.get("http://localhost:5005/list");
       return res.data;
     } catch (err) {
       console.log(err);
@@ -16,9 +16,18 @@ export const getList = createAsyncThunk(
 
 export const addList = createAsyncThunk("ADD_LIST", async (newList) => {
   try {
-    const res = await axios.post(`http://localhost:8000/list`, newList);
+    const res = await axios.post(`http://localhost:5005/list`, newList);
     return res.data;
     // 리턴값이 2개면 중괄호
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+export const deleteList = createAsyncThunk("DELETE_LIST", async (id) => {
+  try {
+    const res = await axios.post(`http://localhost:5005/list/${id}`);
+    return id;
   } catch (err) {
     console.log(err);
   }
@@ -39,6 +48,10 @@ const listSlice = createSlice({
     builder.addCase(addList.fulfilled, (state, action) => {
       state.message = "추가 완료";
       state.data.push(action.payload);
+    });
+    builder.addCase(deleteList.fulfilled, (state, action) => {
+      state.message = "삭제 완료";
+      state.data = state.data.filter((ele) => ele.id !== action.payload);
     });
   },
   // 비동기를 담당하는 리듀서

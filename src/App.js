@@ -19,6 +19,9 @@ function App() {
       setListValue("");
     }
   };
+  const onDelete = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div className="App">
