@@ -6,7 +6,7 @@ import List from "./components/List";
 
 function App() {
   const dispatch = useDispatch();
-  const listdata = useSelector((state) => state.list);
+  const listData = useSelector((state) => state.list);
   const [listValue, setListValue] = useState("");
   const [dataValue, setDataValue] = useState("");
   useEffect(() => {
@@ -35,9 +35,9 @@ function App() {
       </button>
       <h2>{dataValue}</h2>
       <form onSubmit={onCreate}>
-        <h1>{listdata.message}</h1>
+        <h1>{listData.message}</h1>
         <div>
-          {listdata.data.map((ele) => (
+          {listData.data.map((ele) => (
             <List key={ele.id} id={ele.id} content={ele.content} />
           ))}
         </div>
