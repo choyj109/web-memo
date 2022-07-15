@@ -1,6 +1,7 @@
 {
   "list": [
     {
+<<<<<<< HEAD
       "content": "rqr",
       "id": 2
     },
@@ -15,6 +16,18 @@
     {
       "content": "eo4i",
       "id": 10
+=======
+      "content": "수정 완료 ",
+      "id": 9
+    },
+    {
+      "content": "이것도 수정완료",
+      "id": 10
+    },
+    {
+      "content": "다시 11수정 ",
+      "id": 11
+>>>>>>> c515b9cc22ec2d247ce46c4475efc03f26badfcf
     }
   ]
 }
